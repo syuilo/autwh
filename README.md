@@ -1,6 +1,8 @@
 autwh
 -------------------------------
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/syuilo/autwh.svg)](https://greenkeeper.io/)
+
 [![][npm-badge]][npm-link]
 [![][mit-badge]][mit]
 
