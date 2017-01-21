@@ -36,7 +36,7 @@ app.get('/twitter/connect', async (req, res) => {
 	res.redirect(ctx.url);
 });
 
-// URL used in loginCallback above
+// URL used in 'callbackUrl' above
 app.get('/twitter/callback', async (req, res) => {
 	const tokens = await twAuth.done(req.session.ctx, req.query.oauth_verifier);
 	console.log(tokens);
