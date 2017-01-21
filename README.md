@@ -32,7 +32,7 @@ app.use(session());
 
 app.get('/twitter/connect', async (req, res) => {
 	const ctx = await twAuth.begin();
-	req.session.xtx = ctx;
+	req.session.ctx = ctx;
 	res.redirect(ctx.url);
 });
 
