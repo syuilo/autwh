@@ -29,18 +29,6 @@ export type SessionContext = {
 	requestTokenSecret: string;
 }
 
-export type AccessTokens = {
-	/**
-	 * User's access token
-	 */
-	accessToken: string;
-
-	/**
-	 * User's access token secret
-	 */
-	accessTokenSecret: string;
-}
-
 export default function(opts: Options) {
 	const oauth = new OAuth(
 		'https://twitter.com/oauth/request_token',
@@ -75,8 +63,28 @@ export default function(opts: Options) {
 		});
 	});
 
-	const done = (ctx: SessionContext, verifier: string) => new Promise<AccessTokens>((resolve, reject) => {
-		oauth.getOAuthAccessToken(ctx.requestToken, ctx.requestTokenSecret, verifier, (err, token, secret) => {
+	const done = (ctx: SessionContext, verifier: string) => new Promise<{
+		/**
+		 * User's access token
+		 */
+		accessToken: string;
+
+		/**
+		 * User's access token secret
+		 */
+		accessTokenSecret: string;
+
+		/**
+		 * User's ID
+		 */
+		userId: string;
+
+		/**
+		 * User's screen name
+		 */
+		screenName: string;
+	}>((resolve, reject) => {
+		oauth.getOAuthAccessToken(ctx.requestToken, ctx.requestTokenSecret, verifier, (err, token, secret, res) => {
 			if (err) { // on error getting access tokens
 				return reject(err);
 			}
@@ -84,7 +92,9 @@ export default function(opts: Options) {
 			// got oauth access tokens
 			resolve({
 				accessToken: token,
-				accessTokenSecret: secret
+				accessTokenSecret: secret,
+				userId: res.user_id,
+				screenName: res.screen_name
 			});
 		});
 	});

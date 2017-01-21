@@ -4,7 +4,9 @@ autwh
 [![][npm-badge]][npm-link]
 [![][mit-badge]][mit]
 
-A simple Twitter API authentication helper. forked from [flutter](https://github.com/gosquared/flutter)
+> A simple Twitter API authentication helper.
+
+[![NPM](https://nodei.co/npm/autwh.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/autwh)
 
 ## Install
 ``` shell
@@ -38,9 +40,8 @@ app.get('/twitter/connect', async (req, res) => {
 
 // URL used in 'callbackUrl' above
 app.get('/twitter/callback', async (req, res) => {
-	const tokens = await twAuth.done(req.session.ctx, req.query.oauth_verifier);
-	console.log(tokens);
-	res.send('Authorized!');
+	const ctx = await twAuth.done(req.session.ctx, req.query.oauth_verifier);
+	res.send(`Authorized! Hello ${ctx.screenName}.`);
 });
 ```
 
