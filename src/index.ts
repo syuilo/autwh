@@ -14,7 +14,7 @@ export interface Options {
 	/**
 	 * The URL to redirect to after Twitter authorisation
 	 */
-	callbackUrl: string;
+	callbackUrl?: string;
 }
 
 export type SessionContext = {
